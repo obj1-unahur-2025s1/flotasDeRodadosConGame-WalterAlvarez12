@@ -1,9 +1,42 @@
-import example.pepita
+import example.*
 
-describe "group of tests for pepita" {
+describe "test de rodados" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+
+
+  const property deportes = new Dependencia(empleados=45)
+  const property cultura = new Dependencia(empleados=31)
+  const property cachito = new Corsa(color="rojo")
+
+  method initialize() {
+     deportes.agregarAFlota(cachito)
+     deportes.agregarAFlota(new Corsa(color="azul"))
+     deportes.agregarAFlota(new Corsa(color="verde"))
+     deportes.agregarAFlota(new Kwid(tieneTanqueAdicional=true))
+     deportes.agregarAFlota(new Especial(capacidad=5, velocidadMaxima=160, peso=1200,color="beige"))
+     cultura.agregarAFlota(cachito)
+     cultura.agregarAFlota(new Kwid(tieneTanqueAdicional=true))
+     cultura.agregarAFlota(new Kwid(tieneTanqueAdicional=false))
+     cultura.agregarAFlota(trafic)
+     trafic.interior(popular)
+     trafic.motor(bataton)
+
+  }
+  test "deportes tiene peso total 6450" {
+    assert.equals(1300+ 1300+1300+1350+1200, deportes.pesoTotalDeFlota())
+  }
+  
+
+  test "cultura tiene peso total de " {
+    assert.equals(1300+ 1350 + 1200+ 4000 + 1000+ 500, cultura.pesoTotalDeFlota())
   }
 
+  test "deportes esta bien equipada" {
+    assert.equals(true, deportes.estaBienEquipada())
+
+  }
+
+  test "cultura esta bien equipada" {
+    assert.equals(false, cultura.estaBienEquipada())
+  }
 }
