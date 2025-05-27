@@ -7,6 +7,10 @@ describe "test de rodados" {
   const property deportes = new Dependencia(empleados=45)
   const property cultura = new Dependencia(empleados=31)
   const property cachito = new Corsa(color="rojo")
+  const pedidodos = new Pedidos(distanciaARecorrer = 960, tiempoMaximo= 8, cantidadDePasajeros=4, rodado=cachito)
+  const pedidouno = new Pedidos(distanciaARecorrer = 960, tiempoMaximo= 8, cantidadDePasajeros=4, rodado=cachito)
+      
+  
 
   method initialize() {
      deportes.agregarAFlota(cachito)
@@ -20,6 +24,8 @@ describe "test de rodados" {
      cultura.agregarAFlota(trafic)
      trafic.interior(popular)
      trafic.motor(bataton)
+     deportes.agregarPedido(pedidouno)
+     deportes.agregarPedido(pedidodos)
 
   }
   test "deportes tiene peso total 6450" {
@@ -40,3 +46,50 @@ describe "test de rodados" {
     assert.equals(false, cultura.estaBienEquipada())
   }
 }
+
+
+describe "etapa 2" {
+    const property cachito = new Corsa(color="rojo")
+    const pedidouno = new Pedidos(distanciaARecorrer = 960, tiempoMaximo= 8, cantidadDePasajeros=4, rodado=cachito)
+
+   method initialize() {
+      pedidouno.agregarColorIncompatible("azul")
+      pedidouno.agregarColorIncompatible("negro")
+   
+   }
+   test "puede satisfacer este viaje" {
+    assert.equals(true, pedidouno.esSatisfactorio())
+   }
+
+   test "agregar rojo a los colores incompatibles" {
+    pedidouno.agregarColorIncompatible("rojo")
+    assert.equals(false, pedidouno.esSatisfactorio())
+   }
+
+   test "cambiar la cantidad de pasajeros" {
+    pedidouno.cantidadDePasajeros(6)
+    assert.equals(false, pedidouno.esSatisfactorio())
+   }
+
+   test "cambiar el maximo de horas" {
+    pedidouno.acelerar()
+    pedidouno.acelerar()
+    assert.equals(160, pedidouno.velocidadRequerida())
+    assert.equals(false, pedidouno.esSatisfactorio())
+   }
+
+   test "el total de pasajeros de los pedidos" {
+    assert.equals(0, deportes.totalPasajerosEnPedidos())
+   }
+
+   test "el conjunto con el pedido 2 no puede ser satisfecho" {
+    assert.equals(#{pedidodos}, deportes.pedidosNoPuedenSerSatisfechos())
+   }
+
+   
+}
+
+
+
+
+// const pedido1= new Pedido(distancia=5, tiempoMaximo= 4, cantidadDePasajeros= 5, )
